@@ -7,3 +7,6 @@ This is a small shopping cart app which has a couple of rules:
 
 ### Preview:
 ![](preview.jpg)
+
+
+Built with React
