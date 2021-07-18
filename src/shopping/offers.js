@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { SKU } from "./inventory";
 import { formatPrice } from "./cartHelper";
 
@@ -11,7 +12,12 @@ export const offerFilters = [
     if (itemInBasket) {
       const { quantity, price } = itemInBasket;
       discount = price * quantity * 0.1;
-      message = `Apples 10% off (${quantity}): -${formatPrice(discount)}`;
+      message = (
+        <Fragment>
+          <td>Apples 10% off ({quantity})</td>
+          <td>-{formatPrice(discount)}</td>
+        </Fragment>
+      );
     }
     return {
       message,
@@ -33,9 +39,12 @@ export const offerFilters = [
           breadInBasket.quantity
         );
         discount = breadInBasket.price * numberOfDiscounts * 0.5;
-        message = `Bread 50% Off (${numberOfDiscounts}): -${formatPrice(
-          discount
-        )}`;
+        message = (
+          <Fragment>
+            <td>Bread 50% Off ({numberOfDiscounts})</td>
+            <td>-{formatPrice(discount)}</td>
+          </Fragment>
+        );
       }
     }
     return {

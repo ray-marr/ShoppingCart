@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import "./Cart.css";
 import { offerFilters, discountCodes } from "./offers";
 import { formatPrice } from "./cartHelper";
@@ -30,7 +30,12 @@ const Cart = (props) => {
         if (offer.discount > 0) {
           offerMatched = true;
         }
-        return <div key={index}>{offer.message}</div>;
+        const offerMessage = offer.message ? (
+          <tr className="offer" key={index}>
+            {offer.message}
+          </tr>
+        ) : null;
+        return offerMessage;
       });
 
     if (voucher) {
@@ -38,17 +43,29 @@ const Cart = (props) => {
       total < 0 && (total = 0);
     }
     return (
-      <div>
-        {offerMatched ? offers : !voucher && <div>(No offers available)</div>}
+      <Fragment>
+        {offerMatched
+          ? offers
+          : !voucher && (
+              <td>
+                <tr>(No offers available)</tr>
+              </td>
+            )}
         {voucher && (
-          <div>
-            Voucher ({voucher.code}): -${formatPrice(voucher.amount)}
-          </div>
+          <tr className="offer">
+            <td>Voucher ({voucher.code})</td>
+            <td>-{formatPrice(voucher.amount)}</td>
+          </tr>
         )}
-        <div>
-          <b>Total Price: {formatPrice(total)}</b>
-        </div>
-      </div>
+        <tr>
+          <td>
+            <b>Total Price</b>
+          </td>
+          <td className="total">
+            <b>{formatPrice(total)}</b>
+          </td>
+        </tr>
+      </Fragment>
     );
   };
 
@@ -67,12 +84,26 @@ const Cart = (props) => {
   let priceSummary = getPriceSummary(items, subTotal);
 
   return (
-    <>
+    <Fragment>
       <p className="cartHeader">Shopping Cart</p>
-      <div>
-        Sub-Total: {formatPrice(subTotal)}
+      <table>
+        {Object.keys(items).map((key) => {
+          const item = items[key];
+          return (
+            <tr>
+              <td>
+                {item.name} ({item.quantity})
+              </td>
+              <td>{formatPrice(item.price)}</td>
+            </tr>
+          );
+        })}
+        <tr>
+          <td>Sub-Total</td>
+          <td className="subtotal">{formatPrice(subTotal)}</td>
+        </tr>
         {priceSummary}
-      </div>
+      </table>
       <br />
       <div className="discount">
         Apply discount code:
@@ -87,7 +118,7 @@ const Cart = (props) => {
         {voucherError && <div className="error">Invalid voucher.</div>}
         {voucher && <div className="success">Voucher applied.</div>}
       </div>
-    </>
+    </Fragment>
   );
 };
 

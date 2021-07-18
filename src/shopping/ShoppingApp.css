@@ -1,13 +1,9 @@
 .shoppingApp {
   text-align: center;
-  background-color: rgb(230, 228, 228);
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: 16px;
-  height: 100%;
 }
 
 .itemsWrapper {
@@ -23,7 +19,11 @@
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  /* padding: 10px; */
+  background: linear-gradient(
+    0deg,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(233, 193, 148, 1) 100%
+  );
 }
 
 .rightSide {
@@ -32,4 +32,13 @@
   height: 100%;
   right: 0;
   background-color: white;
+}
+
+.item {
+  background: linear-gradient(
+    0deg,
+    rgb(245, 245, 245) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  color: rgb(173, 108, 21);
 }
