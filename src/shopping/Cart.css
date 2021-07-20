@@ -55,8 +55,6 @@ table {
   display: table;
   margin-bottom: 16px;
   width: 100%;
-}
-td {
   padding: 0px 16px;
 }
 td:nth-child(1) {
